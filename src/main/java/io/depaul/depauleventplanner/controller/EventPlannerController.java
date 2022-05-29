@@ -8,6 +8,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
@@ -31,10 +32,16 @@ public class EventPlannerController {
     }
 
     @GetMapping(value = "events")
-    public String eventPage(final Model model) {
+    public String eventsPage(final Model model) {
         model.addAttribute("events", commandService.getUpcomingEvents());
         model.addAttribute("helper", new PageDataHelper());
         return "events";
+    }
+
+    @GetMapping(value = "events/{eventId}")
+    public String eventPage(@PathVariable String eventId, final Model model) {
+        final AppUserDetails currentUser = getCurrentUser();
+        return "specificEvent";
     }
 
 
