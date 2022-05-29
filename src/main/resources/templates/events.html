@@ -7,17 +7,24 @@
     <link th:href="@{/css/app.css}" rel="stylesheet">
 </head>
 <body>
-
+<!--th:onclick="|window.location.href='/events/${event.getId()}'|"-->
     <div class="page-container">
-        <div th:each="event: ${events}" class="event-compact-container">
+        <div th:each="event: ${events}" class="event-compact-container" >
+
             <div id="displayEventName">
                 <h4 th:text="${helper.getEventName(event)}"></h4>
             </div>
-            <div id="startDateDisplay" th:text="${event.getDetails().getStartDate()}"></div>
-            <div id="startDateDisplay" th:text="${event.getDetails().getStartDate()}"></div>
-            <div id="endDateDisplay" th:text="${event.getDetails().getEndDate()}"></div>
-            <div id="locationDisplay" th:text="${event.getDetails().getLocation()}"></div>
-            <div id="eventDescriptionDisplay" th:text="${event.getDetails().getDescription()}"></div>
+            <div id="locationDisplay" th:text="'Location : ' + ${helper.getLocationName(event)}"></div>
+            <div id="startDateDisplay" th:text="'Start Date :' + ${helper.getStartDate(event)}"></div>
+            <div id="endDateDisplay" th:text="'End Date :' + ${helper.getEndDate(event)}"></div>
+            <div id="image-comact">
+                <img th:src="@{${helper.getImagePath(event)}}" />
+            </div>
+            <a th:href="'/events/' + ${event.getId()}"><button class="btn-group-sm goodButton" th:href="'/events/' + ${event.getId()}" th:text="VIEW"></button></a>
+
+
+
+<!--            <div id="eventDescriptionDisplay" th:text="${helper.get}"></div>-->
         </div>
     </div>
 
