@@ -3,6 +3,7 @@ package io.depaul.depauleventplanner.controller;
 
 import io.depaul.depauleventplanner.config.auth.AppUserDetails;
 import io.depaul.depauleventplanner.dao.PageDataHelper;
+import io.depaul.depauleventplanner.model.RegisteredEvent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -41,8 +42,22 @@ public class EventPlannerController {
     @GetMapping(value = "events/{eventId}")
     public String eventPage(@PathVariable String eventId, final Model model) {
         final AppUserDetails currentUser = getCurrentUser();
+        final RegisteredEvent registeredEvent = commandService.getEventWithId(eventId);
+        model.addAttribute("user", currentUser);
+        model.addAttribute("event", registeredEvent);
+        model.addAttribute("helper", new PageDataHelper());
+        model.addAttribute("popupData", PageDataHelper.determineButtonOption(registeredEvent, currentUser));
         return "specificEvent";
     }
+
+    @GetMapping(value = "events/{eventId}/cancel/reservation")
+    public RedirectView handleCancelReservation(@PathVariable String eventId) {
+        final AppUserDetails currentUser = getCurrentUser();
+        // ... update state
+        return new RedirectView("/events");
+    }
+
+
 
 
 

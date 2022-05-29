@@ -8,4 +8,5 @@ public interface EventRepository {
     List<RegisteredEvent> all();
     void save(RegisteredEvent registeredEvent);
     RegisteredEvent removeEvent(RegisteredEvent event);
+    RegisteredEvent getEvent(String identifier);
 }

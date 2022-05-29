@@ -3,6 +3,8 @@ package io.depaul.depauleventplanner.model.user;
 
 import lombok.RequiredArgsConstructor;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 public abstract class User {
     private final String username;

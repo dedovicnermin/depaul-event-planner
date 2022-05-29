@@ -32,8 +32,8 @@ public class RegisteredEvent {
         return participants;
     }
 
-    public int getParticipantCount() {
-        return participants.size();
+    public String getParticipantCount() {
+        return ""+participants.size();
     }
 
     public Organizer getEventOrganizer() {

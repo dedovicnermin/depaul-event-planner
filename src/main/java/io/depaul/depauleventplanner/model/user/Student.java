@@ -2,12 +2,8 @@ package io.depaul.depauleventplanner.model.user;
 
 
 import io.depaul.depauleventplanner.behavior.Participant;
-import io.depaul.depauleventplanner.model.RegisteredEvent;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Student extends User implements Participant {
 

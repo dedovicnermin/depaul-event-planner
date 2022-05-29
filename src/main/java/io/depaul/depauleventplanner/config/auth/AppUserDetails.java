@@ -1,6 +1,7 @@
 package io.depaul.depauleventplanner.config.auth;
 
 import io.depaul.depauleventplanner.model.user.User;
+import io.depaul.depauleventplanner.model.user.UserType;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -29,6 +30,15 @@ public class AppUserDetails implements UserDetails {
     public String getUsername() {
         return user.getUsername();
     }
+
+    public UserType getUserType() {
+        return user.getUserType();
+    }
+
+    public User getUser(){
+        return user;
+    }
+
 
     @Override
     public boolean isAccountNonExpired() {

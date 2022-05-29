@@ -40,6 +40,10 @@ public class CommandService {
         return eventRepository.all();
     }
 
+    public RegisteredEvent getEventWithId(final String id) {
+        return eventRepository.getEvent(id);
+    }
+
 
 
 

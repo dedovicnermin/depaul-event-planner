@@ -30,4 +30,9 @@ public class RegisteredEventRepo implements EventRepository {
     public RegisteredEvent removeEvent(RegisteredEvent event) {
         return eventMap.remove(event.getId());
     }
+
+    @Override
+    public RegisteredEvent getEvent(String id) {
+        return eventMap.get(id);
+    }
 }
