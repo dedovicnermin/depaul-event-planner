@@ -1,5 +1,6 @@
 package io.depaul.depauleventplanner.repo.event;
 
+import io.depaul.depauleventplanner.behavior.Participant;
 import io.depaul.depauleventplanner.model.RegisteredEvent;
 import org.springframework.stereotype.Component;
 
@@ -34,5 +35,19 @@ public class RegisteredEventRepo implements EventRepository {
     @Override
     public RegisteredEvent getEvent(String id) {
         return eventMap.get(id);
+    }
+
+    @Override
+    public void removeReservation(String eventId, String username) {
+        final RegisteredEvent registeredEvent = eventMap.get(eventId);
+        registeredEvent.removeParticipant(username);
+        save(registeredEvent);
+    }
+
+    @Override
+    public void addReservation(String eventId, Participant participant) {
+        final RegisteredEvent registeredEvent = eventMap.get(eventId);
+        registeredEvent.addParticipant(participant);
+        save(registeredEvent);
     }
 }

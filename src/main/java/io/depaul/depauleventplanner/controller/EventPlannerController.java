@@ -1,6 +1,7 @@
 package io.depaul.depauleventplanner.controller;
 
 
+import io.depaul.depauleventplanner.behavior.Participant;
 import io.depaul.depauleventplanner.config.auth.AppUserDetails;
 import io.depaul.depauleventplanner.dao.PageDataHelper;
 import io.depaul.depauleventplanner.model.RegisteredEvent;
@@ -53,7 +54,14 @@ public class EventPlannerController {
     @GetMapping(value = "events/{eventId}/cancel/reservation")
     public RedirectView handleCancelReservation(@PathVariable String eventId) {
         final AppUserDetails currentUser = getCurrentUser();
-        // ... update state
+        commandService.cancelReservation(eventId, currentUser.getUsername());
+        return new RedirectView("/events");
+    }
+
+    @GetMapping(value = "events/{eventId}/reserve")
+    public RedirectView handleReserveRequest(@PathVariable String eventId) {
+        final AppUserDetails currentUser = getCurrentUser();
+        commandService.reserveSpot(eventId, (Participant) currentUser.getUser());
         return new RedirectView("/events");
     }
 

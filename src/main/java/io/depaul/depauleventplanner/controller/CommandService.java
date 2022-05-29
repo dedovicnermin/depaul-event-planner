@@ -1,5 +1,6 @@
 package io.depaul.depauleventplanner.controller;
 
+import io.depaul.depauleventplanner.behavior.Participant;
 import io.depaul.depauleventplanner.model.RegisteredEvent;
 import io.depaul.depauleventplanner.repo.event.EventRepository;
 import io.depaul.depauleventplanner.repo.location.LocationRepo;
@@ -24,8 +25,8 @@ public class CommandService {
         return false;
     }
 
-    public boolean reserveSpot() {
-        return false;
+    public void reserveSpot(final String eventId, final Participant participant) {
+        eventRepository.addReservation(eventId, participant);
     }
 
     public void cancelEvent() {}
@@ -42,6 +43,10 @@ public class CommandService {
 
     public RegisteredEvent getEventWithId(final String id) {
         return eventRepository.getEvent(id);
+    }
+
+    public void cancelReservation(final String eventId, final String username) {
+        eventRepository.removeReservation(eventId, username);
     }
 
 

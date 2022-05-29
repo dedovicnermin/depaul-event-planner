@@ -1,7 +1,6 @@
 package io.depaul.depauleventplanner.dao;
 
 import io.depaul.depauleventplanner.behavior.Attendee;
-import io.depaul.depauleventplanner.behavior.Organizer;
 import io.depaul.depauleventplanner.config.auth.AppUserDetails;
 import io.depaul.depauleventplanner.model.RegisteredEvent;
 import io.depaul.depauleventplanner.model.user.UserType;
@@ -89,11 +88,7 @@ public class PageDataHelper {
             if (event.getEventOrganizer().getUsername().equals(userDetails.getUsername())) {
                 return cancelEventPopup(event.getId());
             } else {
-                final long match = event.getParticipants().stream()
-                        .filter(participant -> !participant.getUsername().equals(userDetails.getUsername()))
-                        .count();
-                // faculty can reserve a spot
-                if (match == 0) {
+                if (event.userNotReservedForEvent(userDetails.getUsername())) {
                     return reserveSpotPopup(event.getId());
                 } else {
                     return cancelReservationPopup(event.getId());
@@ -101,10 +96,7 @@ public class PageDataHelper {
 
             }
         } else {
-            final long alreadyReserved = event.getParticipants().stream()
-                    .filter(participant -> participant.getUsername().equals(userDetails.getUsername()))
-                    .count();
-            if (alreadyReserved == 0) {
+            if (event.userNotReservedForEvent(userDetails.getUsername())) {
                 return reserveSpotPopup(event.getId());
             } else {
                 return cancelReservationPopup(event.getId());

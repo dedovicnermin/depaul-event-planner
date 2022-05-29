@@ -3,20 +3,18 @@ package io.depaul.depauleventplanner.model;
 import io.depaul.depauleventplanner.behavior.Organizer;
 import io.depaul.depauleventplanner.behavior.Participant;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public class RegisteredEvent {
     private final String id;
     private final EventDetails details;
-    private final List<Participant> participants;
     private final Organizer eventOrganizer;
+    Map<String, Participant> participantMap = new HashMap<>();
 
     public RegisteredEvent(EventDetails details, Organizer eventOrganizer) {
         id = UUID.randomUUID().toString();
         this.details = details;
-        this.participants = new ArrayList<>();
+
         this.eventOrganizer = eventOrganizer;
     }
 
@@ -29,11 +27,11 @@ public class RegisteredEvent {
     }
 
     public List<Participant> getParticipants() {
-        return participants;
+        return new ArrayList<>(participantMap.values());
     }
 
     public String getParticipantCount() {
-        return ""+participants.size();
+        return ""+participantMap.values().size();
     }
 
     public Organizer getEventOrganizer() {
@@ -41,6 +39,17 @@ public class RegisteredEvent {
     }
 
     public void addParticipant(final Participant participant) {
-        this.participants.add(participant);
+        if (Integer.parseInt(getParticipantCount()) == details.getLocation().getMaxCapacity()) {
+            throw new RuntimeException("Reservations already at maximum capacity!! Could not successfully reserve.");
+        }
+        participantMap.put(participant.getUsername(), participant);
+    }
+
+    public void removeParticipant(final String username) {
+        participantMap.remove(username);
+    }
+
+    public boolean userNotReservedForEvent(final String username) {
+        return !Objects.nonNull(participantMap.get(username));
     }
 }
