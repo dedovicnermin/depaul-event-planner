@@ -1,6 +1,7 @@
 package io.depaul.depauleventplanner.controller;
 
 
+import io.depaul.depauleventplanner.behavior.Attendee;
 import io.depaul.depauleventplanner.behavior.Participant;
 import io.depaul.depauleventplanner.config.auth.AppUserDetails;
 import io.depaul.depauleventplanner.dao.PageDataHelper;
@@ -12,6 +13,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.view.RedirectView;
+
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -28,7 +31,7 @@ public class EventPlannerController {
     @GetMapping(value = "home")
     public String homePage(final Model model) {
         final AppUserDetails currentUser = getCurrentUser();
-        model.addAttribute("currentUser", currentUser);
+        model.addAttribute("user", currentUser.getUser());
         return "homepage";
 
     }
@@ -51,6 +54,15 @@ public class EventPlannerController {
         return "specificEvent";
     }
 
+    @GetMapping(value = "events/user")
+    public String viewEventsLinkedToUser(final Model model) {
+        final List<RegisteredEvent> linkedToUser = commandService.getEventsLinkedToUser(getCurrentUser().getUsername());
+        model.addAttribute("events", linkedToUser);
+        model.addAttribute("helper", new PageDataHelper());
+        return "events";
+    }
+
+
     @GetMapping(value = "events/{eventId}/cancel/reservation")
     public RedirectView handleCancelReservation(@PathVariable String eventId) {
         final AppUserDetails currentUser = getCurrentUser();
@@ -58,11 +70,24 @@ public class EventPlannerController {
         return new RedirectView("/events");
     }
 
+    @GetMapping(value = "events/{eventId}/cancel/event")
+    public RedirectView handleCancelEventRequest(@PathVariable String eventId) {
+        final AppUserDetails currentUser = getCurrentUser();
+        commandService.cancelEvent(currentUser.getUser(), eventId);
+        return new RedirectView("/events");
+    }
+
+
     @GetMapping(value = "events/{eventId}/reserve")
     public RedirectView handleReserveRequest(@PathVariable String eventId) {
         final AppUserDetails currentUser = getCurrentUser();
         commandService.reserveSpot(eventId, (Participant) currentUser.getUser());
         return new RedirectView("/events");
+    }
+
+    @GetMapping(value = "events/register")
+    public String handleRegisterEventRequest(final Model model) {
+        return "blank";
     }
 
 

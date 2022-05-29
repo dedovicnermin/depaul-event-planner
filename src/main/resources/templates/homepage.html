@@ -8,10 +8,17 @@
 </head>
 <body>
 
-    <div id="container">
+    <div id="home-container">
         <button type="button" class="btn btn-primary btn-md" onclick="window.location.href='/events'">
             Upcoming Events
         </button>
+        <button type="button" class="btn btn-primary btn-md" onclick="window.location.href='/events/user'">
+            Upcoming Events
+        </button>
+        <button th:if="${user.canOrganize()}" type="button" class="btn btn-primary btn-md" onclick="window.location.href='/events/register'">
+            Register an event
+        </button>
+
     </div>
 
 </body>
