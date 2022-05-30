@@ -3,6 +3,7 @@ package io.depaul.depauleventplanner.config;
 import io.depaul.depauleventplanner.model.EventDetails;
 import io.depaul.depauleventplanner.model.RegisteredEvent;
 import io.depaul.depauleventplanner.model.location.Location;
+import io.depaul.depauleventplanner.model.location.LocationStatus;
 import io.depaul.depauleventplanner.model.user.Faculty;
 import io.depaul.depauleventplanner.model.user.Student;
 import io.depaul.depauleventplanner.model.user.User;
@@ -16,8 +17,9 @@ import java.util.UUID;
 
 @Configuration
 public class InitData {
-    static final Location location1 = new Location(UUID.randomUUID().toString(), "Big Blue's Room","222 W TwoStreet", "Chi", "IL", 40);
-    static final Location location2 = new Location(UUID.randomUUID().toString(), "McGee's Bar and Pub","121 W PubCity", "Chi", "IL", 30);
+    static final Location location1 = new Location( "Big Blue's Room","222 W TwoStreet", "Chi", "IL", 40);
+    static final Location location2 = new Location("McGee's Bar and Pub","121 W PubCity", "Chi", "IL", 30);
+    static final Location location3 = new Location("The Library", "234 DPUACADEMIA ST", "Chi", "IL", 122);
     static final Faculty FACULTY = new Faculty("slapass", "password", "Vicky Slapass");
     static final Student STUDENT = new Student("nermin", "password", "Nermin Dedovic");
 
@@ -26,6 +28,7 @@ public class InitData {
         Map<String, Location> map = new HashMap<>();
         map.put(location1.getId(), location1);
         map.put(location2.getId(), location2);
+        map.put(location3.getId(), location3);
         return map;
     }
 
@@ -38,17 +41,18 @@ public class InitData {
                 new EventDetails("Kick Off", LocalDateTime.now(), LocalDateTime.now().plusHours(3), "/images/event1.jpeg", "This is the first kick off event", location1),
                 FACULTY
         );
+        location1.setStatus(LocationStatus.RESERVED);
         kick_off.addParticipant(STUDENT);
         final RegisteredEvent dance_off = new RegisteredEvent(
                 new EventDetails("Dance off", LocalDateTime.now(), LocalDateTime.now().plusHours(2), "/images/event2.jpeg", "Dance your butt off people. Dance your butt off people. Dance your butt off people. Dance your butt off people. Dance your butt off people. Dance your butt off people.", location2),
                 FACULTY
         );
+        location2.setStatus(LocationStatus.RESERVED);
         dance_off.addParticipant(STUDENT);
         map.put(kick_off.getId(), kick_off);
         map.put(dance_off.getId(), dance_off);
         return map;
     }
-
 
 
     @Bean

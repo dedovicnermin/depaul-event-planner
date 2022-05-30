@@ -2,6 +2,8 @@ package io.depaul.depauleventplanner.model.location;
 
 import lombok.Data;
 
+import java.util.UUID;
+
 @Data
 public class Location {
     private final String id;
@@ -12,8 +14,8 @@ public class Location {
     private int maxCapacity;
     LocationStatus status;
 
-    public Location(String id, String name, String address, String city, String state, int maxCapacity) {
-        this.id = id;
+    public Location(String name, String address, String city, String state, int maxCapacity) {
+        this.id = UUID.randomUUID().toString();
         this.name = name;
         this.address = address;
         this.city = city;
@@ -21,5 +23,6 @@ public class Location {
         this.maxCapacity = maxCapacity;
         this.status = LocationStatus.AVAILABLE;
     }
+
 
 }

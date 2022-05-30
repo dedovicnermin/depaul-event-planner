@@ -2,9 +2,11 @@ package io.depaul.depauleventplanner.model;
 
 import io.depaul.depauleventplanner.behavior.Organizer;
 import io.depaul.depauleventplanner.behavior.Participant;
+import lombok.ToString;
 
 import java.util.*;
 
+@ToString
 public class RegisteredEvent {
     private final String id;
     private final EventDetails details;

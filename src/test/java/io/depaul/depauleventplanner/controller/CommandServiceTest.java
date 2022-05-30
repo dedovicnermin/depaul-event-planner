@@ -24,8 +24,8 @@ class CommandServiceTest {
 
     @BeforeEach
     void init() {
-        Map<String, RegisteredEvent> initialState = new HashMap<>();
-        final RegisteredEvent registeredEvent = new RegisteredEvent(new EventDetails("dsf", null, null, null, null, new Location(null, null, null, null,null, 10)), FACULTY);
+         initialState = new HashMap<>();
+        final RegisteredEvent registeredEvent = new RegisteredEvent(new EventDetails("dsf", null, null, null, null, new Location(null, null, null, null,10)), FACULTY);
         registeredEvent.addParticipant(STUDENT);
         initialState.put(registeredEvent.getId(), registeredEvent);
         service = new CommandService(null, null, new RegisteredEventRepo(initialState));

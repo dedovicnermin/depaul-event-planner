@@ -12,4 +12,5 @@ public interface EventRepository {
     RegisteredEvent getEvent(String identifier);
     void removeReservation(String eventId, String username);
     void addReservation(String eventId, Participant username);
+    void persistNewEvent(RegisteredEvent event);
 }

@@ -50,4 +50,9 @@ public class RegisteredEventRepo implements EventRepository {
         registeredEvent.addParticipant(participant);
         save(registeredEvent);
     }
+
+    @Override
+    public void persistNewEvent(RegisteredEvent event) {
+        eventMap.put(event.getId(), event);
+    }
 }

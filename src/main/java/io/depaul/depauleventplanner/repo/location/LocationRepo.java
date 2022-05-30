@@ -8,13 +8,21 @@ import java.util.*;
 @Component
 public class LocationRepo implements LocationRepository {
     private final Map<String, Location> locationMap;
-    public LocationRepo() {
-        locationMap = new HashMap<>();
+    public LocationRepo(Map<String, Location> locationMap) {
+        this.locationMap = locationMap;
     }
 
     @Override
     public Location getLocation(String id) {
         return locationMap.get(id);
+    }
+
+    @Override
+    public Location getLocationByName(String locationName) {
+        return locationMap.values().stream()
+                .filter(location -> location.getName().equals(locationName))
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("No location with this name :" + locationName));
     }
 
     @Override
@@ -29,6 +37,11 @@ public class LocationRepo implements LocationRepository {
 
     @Override
     public List<Location> all() {
-        return null;
+
+        final ArrayList<Location> locations = new ArrayList<>(locationMap.values());
+        System.out.println(locations);
+        return locations;
     }
+
+
 }
