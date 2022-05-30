@@ -10,6 +10,7 @@ import io.depaul.depauleventplanner.dao.RegisterEventForm;
 import io.depaul.depauleventplanner.model.RegisteredEvent;
 import io.depaul.depauleventplanner.model.location.Location;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,6 +24,7 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
+@Slf4j
 public class EventPlannerController {
 
     final CommandService commandService;
@@ -43,7 +45,9 @@ public class EventPlannerController {
 
     @GetMapping(value = "events")
     public String eventsPage(final Model model) {
-        model.addAttribute("events", commandService.getUpcomingEvents());
+        final List<RegisteredEvent> upcomingEvents = commandService.getUpcomingEvents();
+        upcomingEvents.forEach(re -> log.info(""+re));
+        model.addAttribute("events", upcomingEvents);
         model.addAttribute("helper", new PageDataHelper());
         return "events";
     }

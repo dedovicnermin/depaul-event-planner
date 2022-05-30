@@ -6,6 +6,11 @@
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
     <link th:href="@{/css/app.css}" rel="stylesheet">
     <link th:href="@{/js/popup.js}" rel="script">
+
+    <style>
+
+    </style>
+
 </head>
 <body>
 
@@ -16,7 +21,8 @@
         <table class="table table-bordered table-dark" th:object="${event}">
             <tbody>
             <tr>
-                <td colspan="2" th:text="${helper.getEventName(event)}"></td>
+                <td>Event Name</td>
+                <td th:text="${helper.getEventName(event)}" ></td>
             </tr>
             <tr>
                 <td>Organizer</td>

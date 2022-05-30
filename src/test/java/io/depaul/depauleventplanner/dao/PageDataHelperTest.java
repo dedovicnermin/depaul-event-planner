@@ -3,6 +3,7 @@ package io.depaul.depauleventplanner.dao;
 import io.depaul.depauleventplanner.config.auth.AppUserDetails;
 import io.depaul.depauleventplanner.model.EventDetails;
 import io.depaul.depauleventplanner.model.RegisteredEvent;
+import io.depaul.depauleventplanner.model.location.Location;
 import io.depaul.depauleventplanner.model.user.Faculty;
 import io.depaul.depauleventplanner.model.user.Student;
 import org.junit.jupiter.api.Test;
@@ -22,7 +23,7 @@ class PageDataHelperTest {
                 LocalDateTime.now(),
                 null,
                 null,
-                null
+                new Location(null,null,null,null,10)
         );
 
         final Faculty faculty = new Faculty("lappas", "password", "Vicky Lappas");

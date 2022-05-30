@@ -5,17 +5,37 @@
     <title>Event Planner | Home</title>
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
     <link th:href="@{/css/app.css}" rel="stylesheet">
+
+    <style>
+        #home-container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .button-space {
+            margin-top: 15px;
+            margin-bottom: 15px;
+            width: 30%;
+        }
+    </style>
 </head>
 <body>
 
     <div id="home-container">
-        <button type="button" class="btn btn-primary btn-md" onclick="window.location.href='/events'">
+
+        <h3>Home</h3>
+
+        <button type="button" class="btn btn-primary btn-md button-space" onclick="window.location.href='/events'">
             Upcoming Events
         </button>
-        <button type="button" class="btn btn-primary btn-md" onclick="window.location.href='/events/user'">
-            Upcoming Events
+        <button type="button" class="btn btn-primary btn-md button-space" onclick="window.location.href='/events/user'">
+            My Events
         </button>
-        <button th:if="${user.canOrganize()}" type="button" class="btn btn-primary btn-md" onclick="window.location.href='/events/register'">
+        <button th:if="${user.canOrganize()}" type="button" class="btn btn-primary btn-md button-space" onclick="window.location.href='/events/register'">
             Register an event
         </button>
 

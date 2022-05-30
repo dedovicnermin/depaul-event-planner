@@ -21,11 +21,11 @@ public class PageDataHelper {
     }
 
     public static String getEventName(final RegisteredEvent event) {
-        return event.getDetails().getName() +"\t" + getOrganizerName(event);
+        return event.getDetails().getName();
     }
 
     public static String getOrganizerName(final RegisteredEvent event) {
-        return ofNullable(event.getEventOrganizer()).map(Attendee::displayName).map(s -> "(" + s + ")").orElse("(Unkown)");
+        return ofNullable(event.getEventOrganizer()).map(Attendee::displayName).orElse("Unknown");
     }
 
     public static List<String> getParticipantDisplayNames(final RegisteredEvent registeredEvent) {

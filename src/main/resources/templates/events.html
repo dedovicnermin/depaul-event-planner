@@ -5,28 +5,94 @@
     <title>Event Planner | All Events</title>
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
     <link th:href="@{/css/app.css}" rel="stylesheet">
+
+    <style>
+
+        body {
+            width: 100vw;
+            height: 100vh;
+        }
+        .body-container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .events-page-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-content: flex-start;
+            width: 100%;
+        }
+        .eventlist-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: start;
+            align-items: center;
+        }
+        .event-container-compact {
+            border: 2px black solid;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 50%;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        #displayEventName {
+            width: 100%;
+        }
+        #imageCompact {
+            display: flex;
+            height: 40%;
+            width: 40%;
+        }
+        #header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 25px;
+            font-weight: bolder;
+        }
+        .little-separation {
+            margin: 10px;
+        }
+    </style>
+
 </head>
 <body>
-<!--th:onclick="|window.location.href='/events/${event.getId()}'|"-->
-    <div class="page-container">
-        <div th:each="event: ${events}" class="event-compact-container" >
 
-            <div id="displayEventName">
-                <h4 th:text="${helper.getEventName(event)}"></h4>
+<div class="body-container">
+
+    <div class="events-page-container">
+        <div id="header">Upcoming Events</div>
+        <div class="eventlist-container">
+
+            <div class="event-container-compact" th:each="event: ${events}">
+                <div id="displayEventName" th:text="${helper.getEventName(event)}"></div>
+                <div id="locationDisplay" th:text="'Location : ' + ${helper.getLocationName(event)}"></div>
+                <div id="startDateCompact" th:text="'Start Date : ' + ${helper.getStartDate(event)}"></div>
+                <div id="endDateCompact" th:text="'End Date : ' + ${helper.getEndDate(event)}"></div>
+                <div id="imageCompact">
+                    <img th:src="@{${helper.getImagePath(event)}}" class="img-fluid little-separation">
+                </div>
+                <a th:href="'/events/' + ${event.getId()}">
+                    <button class="btn-group-sm little-separation" style="height: 100%; width: 100%;">VIEW</button>
+                </a>
+
             </div>
-            <div id="locationDisplay" th:text="'Location : ' + ${helper.getLocationName(event)}"></div>
-            <div id="startDateDisplay" th:text="'Start Date :' + ${helper.getStartDate(event)}"></div>
-            <div id="endDateDisplay" th:text="'End Date :' + ${helper.getEndDate(event)}"></div>
-            <div id="image-comact">
-                <img th:src="@{${helper.getImagePath(event)}}" />
-            </div>
-            <a th:href="'/events/' + ${event.getId()}"><button class="btn-group-sm goodButton" th:href="'/events/' + ${event.getId()}" th:text="VIEW"></button></a>
 
-
-
-<!--            <div id="eventDescriptionDisplay" th:text="${helper.get}"></div>-->
         </div>
+
+
     </div>
+
+
+</div>
+
 
 </body>
 </html>
